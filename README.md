@@ -1,2 +1,2 @@
 # rest-bricks
-CNJ Rest-Bricks: Applicazioni backend e frontend da combinare come volete
+CNJ Rest-Bricks: backend and frontend applications, useful to learn every kind of framework
