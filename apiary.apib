@@ -1,0 +1,219 @@
+FORMAT: 1A
+
+
+# cnj-rest-bricks
+
+It's a simple app for monitoring your cars gas consumption
+
+## Group My Cars
+
+This API provide facilities for CRUD your cars
+
+# List of my cars [/v1/{username}/cars]
+
+This resource retrieve all registered cars for a given user:
+
++ username - registered username
+
++ Parameters
+    + username: cnj (required, string) - Registered username
+
+## Retrieve all your cars [GET]
+
++ Response 200 (application/json)
+
+        {
+            "data" : [
+                {
+                    "brand" : "Mercedes Benz",
+                    "model" : "Classe B",
+                    "plate_number" : "BC880NZ"
+                },
+                {
+                    "brand" : "Peugeot",
+                    "model" : "2008",
+                    "plate_number" : "CE330TY"
+                },
+                {
+                    "brand" : "Fiat",
+                    "model" : "Panda",
+                    "plate_number" : "AZ034EE"
+                },
+                {
+                    "brand" : "Citroen",
+                    "model" : "Mehari",
+                    "plate_number" : "AA001AA"
+                }
+            ],
+            
+            links : {
+                "self" : {"href" : "/v1/{username}/cars"},
+                "item" : {"href" : "/v1/{username}/cars/{plate_number}"}
+            }
+            
+        }
+
+
+## Car [/v1/{username}/cars/{plate_number}]
+
+A single car is addressed by following arguments:
+
++ username - Registered username
++ plate_number - Car's plate number
+
++ Parameters
+    + username: cnj (required, string) - Registered username
+    + plate_number: CE330TY (required, string)- Car's plate number
+
+### View a single car [GET]
+
++ Response 200 (application/json)
+
+        {
+            "data" : {
+                "brand" : "Peugeot",
+                "model" : "2008",
+                "plate_number" : "CE330TY"
+            },
+            
+            links : {
+                "self" : {"href" : "/v1/{username}/cars/{plate_number}"},
+                "edit" : {"href" : "/v1/{username}/cars/{plate_number}"},
+                "delete" : {"href" : "/v1/{username}/cars/{plate_number}"}
+            }
+        }
+        
+### Create a new car [POST]
+
++ Request (application/json)
+
+        {
+            "brand" : "Peugeot",
+            "model" : "2008",
+            "plate_number" : "CE330TY"
+        }
+
++ Response 201 (application/json)
+
+        {
+            "data" : {
+                "brand" : "Peugeot",
+                "model" : "2008",
+                "plate_number" : "CE330TY"
+            },
+            
+            links : {
+                "self" : {"href" : "/v1/{username}/cars/{plate_number}"},
+                "edit" : {"href" : "/v1/{username}/cars/{plate_number}"},
+                "delete" : {"href" : "/v1/{username}/cars/{plate_number}"}
+            }
+        }
+        
+### Edit an existing car [PUT]
+
++ Request (application/json)
+
+        {
+            "brand" : "Peugeot",
+            "model" : "2008",
+            "plate_number" : "EC003YT"
+        }
+
++ Response 204 (application/json)
+
+### Delete an existing car [DELETE]
+
++ Response 204 (application/json)
+
+## Group Fill up the thank
+
+## Refuels [/v1/{username}/car/{plate_number}/refuels]
+
+Get all refuels for a given car and user
+
++ username - Registered username
++ plate_number - Car's plate number
+
++ Parameters
+    + username: cnj (required, string) - Registered username
+    + plate_number: CE330TY (required, string)- Car's plate number
+
+### All car's refuels [GET]
+
++ Response 200 (application/json)
+
+        {
+            "data" : [
+                {
+                    "liters" : "26.7",
+                    "fill_date" : "2014-12-22T18:09:04.212+02:00",
+                    "current_km" : "12023"
+                },
+                {
+                    "liters" : "16.3",
+                    "fill_date" : "2015-02-21T08:11:14.112+02:00",
+                    "current_km" : "12213"
+                },
+                {
+                    "liters" : "16.3",
+                    "fill_date" : "2015-03-02T25:19:05.254+02:00",
+                    "current_km" : "12540"
+                },
+                {
+                    "liters" : "21.2",
+                    "fill_date" : "2015-03-15T14:19:03.114+02:00",
+                    "current_km" : "13500"
+                },
+                {
+                    "liters" : "35.4",
+                    "fill_date" : "2015-03-30T15:50:02.986+02:00",
+                    "current_km" : "13980"
+                },
+                {
+                    "liters" : "31.2",
+                    "fill_date" : "2015-04-07T21:10:45.543+02:00",
+                    "current_km" : "14020"
+                }
+            ],
+            
+            "links" : {
+                "self" : {"href" : "/v1/{username}/car/{plate_number}/refuels"}
+            }
+        }
+
+
+## Gas fill [/v1/{username}/car/{plate_number}/refuel]
+
+Handle a singe gas fill event
+
++ username - Registered username
++ plate_number - Car's plate number
+
++ Parameters
+    + username: cnj (required, string) - Registered username
+    + plate_number: CE330TY (required, string)- Car's plate number
+    
+### Create a gas fill [POST]
+
++ Request (application/json)
+
+        {
+            "liters" : "33.2",
+            "fill_date" : "2015-05-12T24:10:45.543+02:00",
+            "current_km" : "14020"
+        }
+
++ Response 201 (application/json)
+
+        {
+            "data" : {
+                "liters" : "33.2",
+                "fill_date" : "2015-05-12T24:10:45.543+02:00",
+                "current_km" : "14020"
+            },
+            
+            links : {
+                "self" : {"href" : "/v1/{username}/car/{plate_number}/refuel"},
+                "all" : {"href" : "/v1/{username}/car/{plate_number}/refuels"}
+            }
+        }
